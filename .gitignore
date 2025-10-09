@@ -1,0 +1,23 @@
+# PHP
+*.log
+*.cache
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Configuración local (descomentar si no quieres subir la configuración)
+# config/database.php
+
+# Temporal
+tmp/
+temp/
+*.tmp
+
