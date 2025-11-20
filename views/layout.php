@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Productos</title>
+    <title>Practica MVC Bootstrap</title>
     
     <!-- Bootstrap CSS -->
-    <link href="assets/css/bootstrap-5.3.8-dist/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-5.3.8-dist/bootstrap.css" rel="stylesheet">
     
     <!-- Bootstrap Icons -->
     <link href="assets/bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">

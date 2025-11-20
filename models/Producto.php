@@ -2,15 +2,7 @@
 /**
  * MODELO - Producto.php
  * 
- * ¿Qué es un Modelo en MVC?
- * El modelo es la "capa de datos" que:
- * - Maneja todas las operaciones con la base de datos
- * - Contiene la lógica específica de los datos
- * - No sabe nada sobre la interfaz (vistas)
- * - Proporciona métodos para CRUD (Create, Read, Update, Delete)
- * 
- * En resumen: El modelo es el "almacén de datos" que se conecta a la BD
- */
+*/
 
 class Producto{
     // Propiedad privada para almacenar la conexión a la base de datos
@@ -38,7 +30,6 @@ class Producto{
      * ¿Cuándo se usa?
      * - Cuando el controlador necesita mostrar la lista de productos
      * 
-     * @return array Array con todos los productos de la BD
      */
     public function obtenerTodos(){
         // 1. Definir la consulta SQL
@@ -65,12 +56,10 @@ class Producto{
      * ¿Cuándo se usa?
      * - Cuando el controlador necesita guardar un nuevo producto
      * 
-     * @param array $datos Array con los datos del producto ['nombre', 'precio', 'descripcion']
-     * @return bool true si se creó exitosamente, false si hubo error
      */
     public function crear($datos){
         // 1. Definir la consulta SQL con placeholders (?) para seguridad
-        $sql = "INSERT INTO productos (nombre, precio, descripcion) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO productos (nombre, precio, descripcion, imagen) VALUES (?, ?, ?, ?)";
         
         // 2. Preparar la consulta
         $stmt = $this->db->prepare($sql);
@@ -80,9 +69,49 @@ class Producto{
         return $stmt->execute([
             $datos['nombre'],      // Primer ? (nombre)
             $datos['precio'],      // Segundo ? (precio)  
-            $datos['descripcion']  // Tercer ? (descripcion)
+            $datos['descripcion'], // Tercer ? (descripcion)
+            $datos['imagen']       // Cuarto ? (imagen)
         ]);
     }
+
+        public function obtenerPorId($id){
+        // 1. Definir la consulta SQL
+        $sql = "SELECT * FROM productos WHERE id = ?";
+        
+        // 2. Preparar la consulta
+        $stmt = $this->db->prepare($sql);
+        
+        // 3. Ejecutar la consulta
+        $stmt->execute([$id]);
+        
+        // 4. Devolver el resultado (un solo registro)
+        return $stmt->fetch();
+    }
+    public function actualizar($id, $datos){
+            // 1. Definir la consulta SQL
+            $sql = "UPDATE productos SET nombre = ?, precio = ?, descripcion = ?, imagen = ? WHERE id = ?";
+            
+            // 2. Preparar la consulta
+            $stmt = $this->db->prepare($sql);
+            
+            // 3. Ejecutar la consulta
+            return $stmt->execute([
+                $datos['nombre'],      // Primer ? (nombre)
+                $datos['precio'],      // Segundo ? (precio)
+                $datos['descripcion'],
+                $datos['imagen'],     // Tercer ? (descripcion)
+                $id                    // Cuarto ? (id)
+            ]);
+        }
+
+        public function eliminar($id){
+            //definir consulta SQL
+            $sql="DELETE FROM productos WHERE id=?";
+
+            $stmt=$this->db->prepare($sql);
+
+            return $stmt->execute([$id]);
+        }
 }
 
 ?>
